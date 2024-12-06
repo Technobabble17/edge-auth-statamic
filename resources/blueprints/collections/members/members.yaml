@@ -1,0 +1,29 @@
+title: Member
+sections:
+  main:
+    display: Main
+    fields:
+      -
+        handle: name
+        field:
+          type: text
+          required: true
+          validate:
+            - required
+      -
+        handle: email
+        field:
+          type: text
+          input_type: email
+          required: true
+          validate:
+            - required
+            - email
+      -
+        handle: password
+        field:
+          type: text
+          input_type: password
+          required: true
+          validate:
+            - required

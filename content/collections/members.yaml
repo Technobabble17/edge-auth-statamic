@@ -1,0 +1,9 @@
+title: Members
+template: default
+layout: layout
+revisions: false
+route: '/members/{slug}'
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private

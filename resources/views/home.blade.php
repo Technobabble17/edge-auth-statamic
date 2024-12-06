@@ -13,5 +13,11 @@
     </svg>
 </a>
 <article class="mt-4 bg-white p-8 shadow-xl rounded-xl max-w-xl prose">
-    {{ content | widont }}
+
 </article>
+@auth('member')    
+<a href="{{ route('member.dashboard') }}">Member Dashboard</a>
+
+@endauth
+    <a href="{{ route('member.login') }}">Member Login</a>
+    <a href="{{ route('member.register') }}">Member Register</a>
