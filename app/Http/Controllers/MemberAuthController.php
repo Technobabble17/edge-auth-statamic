@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Statamic\Facades\Entry;
 use Illuminate\Support\Str;
 
@@ -22,7 +23,10 @@ class MemberAuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::guard('member')->attempt($credentials)) {
+        if (Auth::guard('member')->attempt([
+            'email' => $credentials['email'],
+            'password' => $credentials['password'],
+        ])) {
             $request->session()->regenerate();
             return redirect()->intended('/members/dashboard');
         }
@@ -45,19 +49,12 @@ class MemberAuthController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $entry = Entry::make()
-            ->collection('members')
-            ->slug(Str::slug($validated['email']))
-            ->data([
-                'title' => $validated['name'],
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => bcrypt($validated['password']),
-            ]);
+        $member = Member::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);
 
-        $entry->save();
-
-        $member = Member::fromEntry($entry);
         Auth::guard('member')->login($member);
 
         return redirect('/members/dashboard');

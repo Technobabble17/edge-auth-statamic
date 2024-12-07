@@ -72,7 +72,7 @@ return [
             'driver' => 'statamic',
         ],
         'members' => [
-            'driver' => 'statamic',
+            'driver' => 'eloquent',
             'model' => App\Models\Member::class,
         ],
         'statamic' => [

@@ -39,7 +39,7 @@ return [
         'driver' => 'eloquent',
         'model' => \Statamic\Eloquent\Entries\UuidEntryModel::class,
         'entry' => \Statamic\Eloquent\Entries\Entry::class,
-        'map_data_to_columns' => false,
+        'map_data_to_columns' => true,
     ],
 
     'fieldsets' => [
